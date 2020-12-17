@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
+
+#Text{
+    padding: 12px;
+    font-family: "Montserrat", sans-serif;
+text-align: center;
+color: rgb(171, 186, 187);
+}
+#currency{
+    text-align: center;
+    background-color: teal;
+    background-attachment: scroll;
+    font-family: "Montserrat", sans-serif;
+    color: rgb(255, 255, 255);
+    padding: 1.75rem;
+    
+}
+
+

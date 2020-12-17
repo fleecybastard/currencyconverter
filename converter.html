@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Currrency converter</title>
+        <link rel="stylesheet" href="header_styles.css">
+        <link rel="stylesheet" href="backpage_style.css">
+        <link rel="stylesheet" href="main_page.css">
+        <link rel="stylesheet" href="converter.css">
+        <!--<script src="converter.js"></script>-->
+    </head>
+    
+    <body>
+        <header>
+            <nav>
+                <ul class="nav__links">
+                    <li><a href="main_page.html">Welcome Page</a></li>
+                    <li><a href="How_it_should_be_used.html">How it should be used</a></li>
+                    <li><a href="converter.html">Converter</a></li>
+                </ul>
+            </nav>
+            <a class = "cta" href="#" onclick="const get_inputs = document.getElementsByClassName('INP')
+            for(let i =0;i<get_inputs.length;i++)
+            {
+                get_inputs[i].value = ''
+            }
+"><button >Clear</button></a>
+        </header>
+        <h1 id = "currency">Currency Converter</h1>
+        <div class  = "converter">
+            <div class = "inner">
+                <ul class="currencies">
+                    <li class = "elem" id="Base">
+                        
+                        <image class ="flag" src= "https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg"></image>
+                        <a>EUR</a>
+                        <input class="INP" id="EUR" type="text" placeholder="0.00" oninput = "convertfrombase(this.value)">
+                  
+                    </li>
+                    <li class = "elem">
+                        <image class ="flag" src= "https://img.geonames.org/flags/l/pl.gif"></image>
+                        <a>PLN</a>
+                        <input class="INP" id="PLN" type="text" placeholder="0.00" oninput="convertnotfrombase(this.value,'PLN')">
+                    </li>
+                    <li class = "elem" >
+                        <image class ="flag" src= "https://img.geonames.org/flags/l/us.gif"></image>
+                        <a>USD</a>
+                        <input class="INP" id = "USD"type="text" placeholder="0.00" oninput="convertnotfrombase(this.value,'USD')">
+                    </li>
+                    <li class = "elem">
+                        <image class ="flag" src= "http://www.geonames.org/flags/l/ru.gif"></image>
+                        <a>RUB</a>
+                        <input class="INP" id = "RUB" type="text" placeholder="0.00" oninput="convertnotfrombase(this.value,'RUB')">
+                    </li>
+                    <li class = "elem">
+                        <image class ="flag" src= "http://www.geonames.org/flags/l/uk.gif"></image>
+                        <a>GBP</a>
+                        <input class="INP" id="GBP" type="text" placeholder="0.00" oninput="convertnotfrombase(this.value,'GBP')">
+                    </li>
+                    <li class = "elem">
+                        <image class ="flag" src= "http://www.geonames.org/flags/l/jp.gif"></image>
+                        <a>JPY</a>
+                        <input class="INP" type="text" id="JPY" placeholder="0.00" oninput="convertnotfrombase(this.value,'JPY')">
+                    </li>
+                    
+                </ul>
+                
+            </div>
+            <script>
+
+                function clear()
+                {
+                    alert("123")
+                    const get_inputs = document.getElementsByClassName("INP")
+                    for(let i =0;i<get_inputs.length;i++)
+                    {
+                        get_inputs[i].value = "123"
+                    }
+
+                }
+                
+                const dataURL = "https://api.exchangeratesapi.io/latest"
+                let currency = [
+{
+    name : "EUR",
+    rate : "1",
+    image: "https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg"
+
+},
+{
+    name : "USD",
+    rate : "1.2189",
+    image: "https://img.geonames.org/flags/l/us.gif"
+
+},
+{
+    name : "RUB",
+    rate : "89.4535",
+    image: "http://www.geonames.org/flags/l/ru.gif"
+
+},
+{
+    name : "GBP",
+    rate : "0.8995",
+    image: "http://www.geonames.org/flags/l/uk.gif"
+
+},
+{
+    name : "JPY",
+    rate : "125.97",
+    image: "http://www.geonames.org/flags/l/jp.gif"
+
+},
+{
+    name: "PLN",
+    rate:"4.4354",
+    image:"https://img.geonames.org/flags/l/ua.gif"
+}
+]
+                function convertfrombase(value)
+                {
+                    FETCHURL(dataURL)
+                    const get_inputs = document.getElementsByClassName("INP")
+                    
+                    for(let i =0;i<get_inputs.length;i++)
+                    {
+                        
+                       let curr =0
+                        if(get_inputs[i].id!="EUR")
+                        {
+                            for(let j =0; j<currency.length;j++)
+                            {
+                                
+                                if(get_inputs[i].id == currency[j].name)
+                                {
+                                    curr=parseFloat(currency[j].rate)
+                                    break
+                                }
+                            }
+                            if(Number.isNaN(parseFloat(value)))
+                            {
+                                get_inputs[i].value = "0.00"
+                            }
+                            else{
+                                
+                                val = parseFloat(value)*curr
+                                val = val.toFixed(2)
+                                get_inputs[i].value=String(val)
+                            }
+                            
+                           
+                                
+                            
+                            
+                        }
+                    }
+                    
+                }
+                function convertnotfrombase(value,id)
+                {
+                    FETCHURL(dataURL)
+                    const get_inputs = document.getElementsByClassName("INP")
+                    let eur_value = 0
+                    for(let i = 0;i<currency.length;i++)
+                    {
+                        if(id==currency[i].name)
+                        {
+                            eur_value=parseFloat(value)/parseFloat(currency[i].rate)
+                            break
+                        }
+
+                    }
+                    for(let i =0;i<get_inputs.length;i++)
+                    {
+                        if(get_inputs[i].id=="EUR")
+                        {
+                            if(Number.isNaN(parseFloat(value)))
+                            {
+                                get_inputs[i].value = "0.00"
+                            }
+                            else{
+                                
+                                
+                                get_inputs[i].value=String(eur_value.toFixed(2))
+                            }
+                        }
+                    }
+                    for(let i =0;i<get_inputs.length;i++)
+                    {
+                        
+                       let curr =0
+                        if(get_inputs[i].id!="EUR"&&get_inputs[i].id!=id)
+                        {
+                            for(let j =0; j<currency.length;j++)
+                            {
+                                
+                                if(get_inputs[i].id == currency[j].name)
+                                {
+                                    curr=parseFloat(currency[j].rate)
+                                    break
+                                }
+                            }
+                            if(Number.isNaN(parseFloat(eur_value)))
+                            {
+                                get_inputs[i].value = "0.00"
+                            }
+                            else{
+                                
+                                val = parseFloat(eur_value)*curr
+                                val = val.toFixed(2)
+                                get_inputs[i].value=String(val)
+                            }
+                        }
+                    }
+
+                }
+                function FETCHURL(url)
+                {
+                    fetch(url)
+                    .then(res =>res.json())
+                    .then(data => {
+                        
+                        data.rates["EUR"]=1
+                        currency= currency.filter(currenc => data.rates[currenc.name])
+                        currency.forEach(currenc=>currenc.rate = data.rates[currenc.name])
+                        
+                    })
+                    .catch(err => {console.log(err)
+                    alert("Something went wrong. Please restart the page!")
+                    })
+
+                }
+                
+            </script>
+            
+            
+            
+        </div>
+    </body>
+</html>
